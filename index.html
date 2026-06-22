@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-one Mattress | Premium Sleep Experience</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Cropper.js CSS for the Image Cropping Feature -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+    <style>
+        /* Magnifying glass zoom styling */
+        .zoom-container { position: relative; overflow: hidden; cursor: zoom-in; }
+        .zoom-container img { transition: transform 0.1s ease-out; transform-origin: center center; }
+        .zoom-container:hover img { transform: scale(2); }
+        
+        /* Premium Background Gradient for Hero */
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.98)), 
+                        url('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 font-sans min-h-screen flex flex-col text-slate-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-black shadow-xl sticky top-0 z-50 border-b border-slate-900/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center w-full">
+                <!-- Far Left: Logo Container -->
+                <div class="flex items-center cursor-pointer py-2" onclick="showCatalogView()">
+                    <img src="logo.jpeg" alt="G-one Mattress Logo" class="h-14 w-auto object-contain transition hover:opacity-90">
+                </div>
+                <!-- Far Right: Navigation Buttons Links -->
+                <div class="flex gap-4 items-center">
+                    <button id="homeNavBtn" onclick="showCatalogView()" class="text-sm font-semibold text-amber-500 hover:text-amber-400 hidden">← Back to Gallery</button>
+                    <button id="adminNavBtn" onclick="openAdminModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg text-sm font-bold tracking-wide transition shadow-md whitespace-nowrap">
+                        Admin Portal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PREMIUM HERO DISPLAY HEADLINE SECTION -->
+    <header id="mainHeroSection" class="hero-bg py-24 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-900 relative">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full">
+                INDIA'S PREMIUM MATTRESS · FACTORY DIRECT
+            </span>
+            <h1 class="text-5xl sm:text-7xl font-black text-white tracking-tight mt-6 mb-4">
+                Sleep Like <br class="sm:hidden"><span class="text-amber-500 italic font-serif">a Buffalo.</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                Handcrafted mattresses with orthopedic support, breathable foam, and natural coir layers — engineered in our own factory and delivered straight to your door.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button onclick="scrollToProducts()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-base">
+                    Shop the Collection
+                    <svg class="w-4 h-4 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <a href="https://wa.me/919876543210" target="_blank" class="w-full sm:w-auto border border-slate-700 bg-slate-900/50 text-white font-medium px-8 py-4 rounded-xl transition hover:bg-slate-800 flex items-center justify-center gap-2 text-base">
+                    <svg class="w-5 h-5 fill-emerald-500" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.948 0c3.179.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.902-11.89 11.902-2.01-.001-3.987-.51-5.742-1.477L0 24zm6.154-3.561l.411.244c1.573.932 3.394 1.424 5.26 1.425 5.735 0 10.4-4.646 10.403-10.36.002-2.768-1.077-5.37-3.04-7.336C17.221 2.446 14.61 1.365 11.85 1.365c-5.741 0-10.406 4.649-10.41 10.366-.002 1.834.48 3.627 1.396 5.202l.258.444-1.022 3.735 3.821-1.002z"/></svg>
+                    Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- PREMIUM TRUST VALUE STRIP -->
+    <section id="featuresStrip" class="bg-slate-900 border-b border-slate-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-xl border border-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">25+ Years</h4>
+                        <p class="text-xs text-slate-400">Warranty Protection</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-xl border border-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Factory Direct</h4>
+                        <p class="text-xs text-slate-400">Uncompromised Quality</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-xl border border-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">All India</h4>
+                        <p class="text-xs text-slate-400">Doorstep Delivery</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-500 rounded-xl border border-amber-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Instant Order</h4>
+                        <p class="text-xs text-slate-400">Via Secure WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN DISPLAY REGION -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        
+        <!-- ================= 1. CUSTOMER CATALOG VIEW ================= -->
+        <section id="catalogView" class="view-section">
+            <div id="productShowcaseAnchor" class="border-b border-slate-900 pb-4 mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-amber-500">Premium Showroom</span>
+                <h2 class="text-3xl font-black text-white tracking-tight mt-1">Our Collection</h2>
+            </div>
+            <!-- Products Grid -->
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- ================= 2. CUSTOMER DETAIL VIEW ================= -->
+        <section id="detailView" class="view-section hidden">
+            <div class="bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 p-6 lg:p-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Left: Interactive Image Slider with Zoom -->
+                    <div>
+                        <div class="zoom-container rounded-xl border border-slate-800 bg-slate-950 aspect-square flex items-center justify-center relative shadow-inner" id="zoomBox" onmousemove="zoomIn(event)" onmouseleave="zoomReset()">
+                            <img id="detailMainImg" src="" alt="Product view" class="w-full h-full object-cover">
+                        </div>
+                        <!-- Slider Controls -->
+                        <div class="flex items-center justify-between mt-4 px-2">
+                            <button onclick="prevImage()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">← Prev Image</button>
+                            <span id="imageCounter" class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Image 1 of 3</span>
+                            <button onclick="nextImage()" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition">Next Image →</button>
+                        </div>
+                    </div>
+                    <!-- Right: Product Information & Checkout -->
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">Factory Direct Product</span>
+                            <h2 id="detailTitle" class="text-3xl font-black text-white mt-4 tracking-tight"></h2>
+                            <div class="text-2xl font-black text-amber-500 mt-2" id="detailPrice"></div>
+                            <hr class="border-slate-800 my-4">
+                            <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Product Architecture & Design</h4>
+                            <p id="detailDesc" class="text-slate-300 leading-relaxed text-base font-light"></p>
+                        </div>
+                        <div class="mt-10 pt-6 border-t border-slate-800">
+                            <a id="whatsappOrderBtn" href="#" target="_blank" class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl transition shadow-md flex items-center justify-center gap-3 text-lg">
+                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397 0 11.948 0c3.179.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.902-11.89 11.902-2.01-.001-3.987-.51-5.742-1.477L0 24zm6.154-3.561l.411.244c1.573.932 3.394 1.424 5.26 1.425 5.735 0 10.4-4.646 10.403-10.36.002-2.768-1.077-5.37-3.04-7.336C17.221 2.446 14.61 1.365 11.85 1.365c-5.741 0-10.406 4.649-10.41 10.366-.002 1.834.48 3.627 1.396 5.202l.258.444-1.022 3.735 3.821-1.002z"/></svg>
+                                Confirm Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. ADMIN CONTROL DASHBOARD ================= -->
+        <section id="adminView" class="view-section hidden">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-5 mb-8">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Admin Operations</h2>
+                    <p class="text-sm text-slate-400 mt-1">Manage configurations, image records, and price profiles.</p>
+                </div>
+                <button onclick="logoutAdmin()" class="bg-red-950/40 hover:bg-red-900/40 text-red-400 border border-red-900/50 px-4 py-2 rounded-lg text-sm font-semibold transition">Logout Dashboard</button>
+            </div>
+
+            <!-- Management Form (Add & Edit) -->
+            <div class="bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-800 max-w-2xl mb-12">
+                <h3 id="formTitle" class="text-lg font-bold text-white mb-6 border-b pb-2 border-slate-800">Create New Mattress Entry</h3>
+                <form id="productForm" onsubmit="handleFormSubmit(event)">
+                    <input type="hidden" id="productId">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-semibold text-slate-300 mb-1">Product Title</label>
+                            <input type="text" id="productTitle" required class="w-full bg-slate-950 rounded-lg border-slate-800 shadow-sm p-3 border text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-1">Price Label (e.g. ₹12,999)</label>
+                            <input type="text" id="productPrice" placeholder="A/" required class="w-full bg-slate-950 rounded-lg border-slate-800 shadow-sm p-3 border text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition">
+                        </div>
+                    </div>
+
+                    <!-- Local Gallery Image Upload Inputs with Cropping Reference -->
+                    <div class="mb-4 bg-slate-950 p-4 rounded-xl border border-dashed border-slate-800">
+                        <label class="block text-sm font-bold text-slate-300 mb-2">Upload Showcase Gallery (Forced 1:1 Professional Crop Layout)</label>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-slate-400 font-medium mb-1">Image 1 (Primary Thumbnail) *</label>
+                                <input type="file" id="productFile1" accept="image/*" onchange="openCropModal(1)" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20">
+                                <div id="previewContainer1" class="mt-2 hidden"><img id="imgPreview1" class="h-20 w-20 object-cover rounded border border-slate-800"></div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 font-medium mb-1">Image 2 (Detail Shot)</label>
+                                <input type="file" id="productFile2" accept="image/*" onchange="openCropModal(2)" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20">
+                                <div id="previewContainer2" class="mt-2 hidden"><img id="imgPreview2" class="h-20 w-20 object-cover rounded border border-slate-800"></div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 font-medium mb-1">Image 3 (Texture Closeup)</label>
+                                <input type="file" id="productFile3" accept="image/*" onchange="openCropModal(3)" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20">
+                                <div id="previewContainer3" class="mt-2 hidden"><img id="imgPreview3" class="h-20 w-20 object-cover rounded border border-slate-800"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-slate-300 mb-1">Detailed Description</label>
+                        <textarea id="productDesc" rows="4" required placeholder="Describe material layers, firmness level..." class="w-full bg-slate-950 rounded-lg border-slate-800 shadow-sm p-3 border text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"></textarea>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="submit" id="submitBtn" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg shadow-sm font-bold transition text-sm">Save to Database</button>
+                        <button type="button" onclick="resetForm()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-5 py-2.5 rounded-lg font-medium transition text-sm">Clear Form</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Admin table list dashboard matrix -->
+            <div class="bg-white shadow-sm rounded-2xl overflow-hidden border border-slate-800">
+                <table class="min-w-full divide-y divide-slate-800 text-left">
+                    <thead class="bg-slate-950">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Mattress Model</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Price Profile</th>
+                            <th class="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody" class="divide-y divide-slate-800 bg-slate-900">
+                        <!-- Loaded smoothly via JS storage -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= 4. AUTHENTICATION PROTECTION MODAL ================= -->
+    <div id="authModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-900 w-full max-w-md p-8 rounded-2xl shadow-xl border border-slate-800 relative mx-4 transform scale-95 transition-transform duration-300">
+            <h3 class="text-2xl font-black text-white mb-1">Staff Verification</h3>
+            <p class="text-sm text-slate-400 mb-6">Unauthorized access restricted.</p>
+            <form onsubmit="verifyAdminCredentials(event)">
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-400 tracking-wider uppercase mb-1">User Identification</label>
+                    <input type="text" id="authUsername" required class="w-full bg-slate-950 rounded-lg border p-3 border-slate-800 text-white outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-slate-400 tracking-wider uppercase mb-1">Access Security Code</label>
+                    <input type="password" id="authPassword" required class="w-full bg-slate-950 rounded-lg border p-3 border-slate-800 text-white outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="closeAdminModal()" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-slate-200">Cancel</button>
+                    <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg text-sm font-bold transition">Authenticate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= 5. DYNAMIC 1:1 FIXED CROP MODAL WORKSPACE ================= -->
+    <div id="cropModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex flex-col items-center justify-center hidden p-4">
+        <div class="bg-slate-900 max-w-lg w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col">
+            <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+                <h4 class="text-base font-bold text-amber-500">Lock Image into 1:1 Square Scale</h4>
+                <span class="text-xs text-slate-400 font-mono">Cropper Engine Layer</span>
+            </div>
+            <div class="p-4 bg-slate-950 flex justify-center items-center h-80 overflow-hidden">
+                <img id="croppingWorkspaceImage" class="max-w-full max-h-full block">
+            </div>
+            <div class="p-4 border-t border-slate-800 flex justify-end gap-3 bg-slate-900">
+                <button type="button" onclick="cancelCrop()" class="px-4 py-2 text-sm font-medium text-slate-400 hover:text-slate-200">Cancel</button>
+                <button type="button" onclick="executeCropAndSave()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2 rounded-lg text-sm transition">Crop & Fit Perfectly</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layout Footer -->
+    <footer class="bg-slate-950 border-t border-slate-900 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 text-center text-xs font-medium text-slate-500 tracking-wider uppercase">
+            &copy; 2026 G-one Mattress. Direct Delivery Pipeline.
+        </div>
+    </footer>
+
+    <!-- Cropper JS Script Injection Layer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    <script>
+        const WHATSAPP_NUMBER = "919876543210"; 
+        const ADMIN_USER = "admin";
+        const ADMIN_PASS = "G1mattress";
+
+        const placeholderImg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231e293b'/><text x='50%27 y='50%27 font-family='sans-serif' font-size='10' fill='%23475569' text-anchor='middle' dy='.3em'>No Image Loaded</text></svg>";
+
+        // Preloaded items seeded on dynamic square templates
+        const fallbackCollection = [
+            {
+                id: "101",
+                title: "Signature Luxury G-ONE Roll Pack Mattress",
+                price: "19999/-",
+                desc: "Compact roll-pack delivery layout engineered with multi-layer high-resilience memory foam. Designed for complete lumbar alignment, edge-to-edge support configuration, and zero partner motion transfer.",
+                imgs: ["https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&q=80&w=600", "", ""]
+            }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('g1_inventory')) || fallbackCollection;
+        if (!localStorage.getItem('g1_inventory')) {
+            localStorage.setItem('g1_inventory', JSON.stringify(products));
+        }
+
+        let uploadedImagesBase64 = ["", "", ""];
+        let activeProduct = null;
+        let activeImgIndex = 0;
+        let isAdminLoggedIn = false;
+
+        // Cropper reference trackers
+        let activeCropperInstance = null;
+        let activeInputSlotNumber = null;
+
+        function scrollToProducts() {
+            document.getElementById('productShowcaseAnchor').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // OPEN CROP MODAL INTERACTION
+        function openCropModal(slotNumber) {
+            const inputElement = document.getElementById(`productFile${slotNumber}`);
+            const targetFile = inputElement.files[0];
+            if (!targetFile) return;
+
+            activeInputSlotNumber = slotNumber;
+            const fileReaderRef = new FileReader();
+            
+            fileReaderRef.onload = function(event) {
+                const workspaceImage = document.getElementById('croppingWorkspaceImage');
+                workspaceImage.src = event.target.result;
+                
+                // Show modal overlay wrapper
+                document.getElementById('cropModal').classList.remove('hidden');
+                
+                // Initialize Cropper tool locked tightly to a 1:1 Aspect Square Ratio
+                if (activeCropperInstance) activeCropperInstance.destroy();
+                activeCropperInstance = new Cropper(workspaceImage, {
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    background: false,
+                    autoCropArea: 1
+                });
+            };
+            fileReaderRef.readAsDataURL(targetFile);
+        }
+
+        function cancelCrop() {
+            document.getElementById('cropModal').classList.add('hidden');
+            document.getElementById(`productFile${activeInputSlotNumber}`).value = "";
+            if (activeCropperInstance) activeCropperInstance.destroy();
+        }
+
+        function executeCropAndSave() {
+            if (!activeCropperInstance) return;
+
+            // Generate high quality canvas dimensions to ensure clear resolution details remain sharp
+            const finalCanvas = activeCropperInstance.getCroppedCanvas({
+                width: 600,
+                height: 600
+            });
+
+            const forcedSquareBase64 = finalCanvas.toDataURL('image/jpeg', 0.9);
+            uploadedImagesBase64[activeInputSlotNumber - 1] = forcedSquareBase64;
+
+            // Render live preview container asset inside admin panel form blocks
+            const previewImg = document.getElementById(`imgPreview${activeInputSlotNumber}`);
+            previewImg.src = forcedSquareBase64;
+            document.getElementById(`previewContainer${activeInputSlotNumber}`).classList.remove('hidden');
+
+            // Dismantle Modal elements safely
+            document.getElementById('cropModal').classList.add('hidden');
+            activeCropperInstance.destroy();
+        }
+
+        function openAdminModal() {
+            if(isAdminLoggedIn) {
+                showSection('adminView');
+                renderAdminTable();
+                return;
+            }
+            const modal = document.getElementById('authModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        function verifyAdminCredentials(e) {
+            e.preventDefault();
+            const u = document.getElementById('authUsername').value;
+            const p = document.getElementById('authPassword').value;
+
+            if (u === ADMIN_USER && p === ADMIN_PASS) {
+                isAdminLoggedIn = true;
+                closeAdminModal();
+                showSection('adminView');
+                renderAdminTable();
+                document.getElementById('adminNavBtn').innerText = "Admin Console Dashboard";
+                document.getElementById('authUsername').value = "";
+                document.getElementById('authPassword').value = "";
+            } else {
+                alert("Security Credentials Incorrect. Access Disallowed.");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('adminNavBtn').innerText = "Admin Portal";
+            showCatalogView();
+        }
+
+        function showSection(targetId) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(targetId).classList.remove('hidden');
+            
+            const heroSec = document.getElementById('mainHeroSection');
+            const stripSec = document.getElementById('featuresStrip');
+            const homeBtn = document.getElementById('homeNavBtn');
+
+            if (targetId === 'catalogView') {
+                heroSec.classList.remove('hidden');
+                stripSec.classList.remove('hidden');
+                homeBtn.classList.add('hidden');
+            } else {
+                heroSec.classList.add('hidden');
+                stripSec.classList.add('hidden');
+                homeBtn.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCatalogView() {
+            showSection('catalogView');
+            renderCustomerGrid();
+        }
+
+        function openProductDetails(id) {
+            activeProduct = products.find(p => p.id === id);
+            if (!activeProduct) return;
+
+            activeImgIndex = 0;
+            document.getElementById('detailTitle').innerText = activeProduct.title;
+            document.getElementById('detailPrice').innerText = activeProduct.price || "Contact for Price";
+            document.getElementById('detailDesc').innerText = activeProduct.desc;
+            
+            updateCarouselImage();
+            
+            const messageText = `Hello G-one Mattress! I checked your luxury website and want to purchase:\n\n*Product:* ${activeProduct.title}\n*Price Listed:* ${activeProduct.price || 'N/A'}\n*Product ID:* ${activeProduct.id}\n\nPlease confirm delivery timelines and logistics parameters.`;
+            document.getElementById('whatsappOrderBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(messageText)}`;
+            
+            showSection('detailView');
+        }
+
+        function getValidImages(product) {
+            let validImgs = product.imgs.filter(url => url && url.trim() !== "");
+            if (validImgs.length === 0) validImgs = [placeholderImg];
+            return validImgs;
+        }
+
+        function updateCarouselImage() {
+            const imgs = getValidImages(activeProduct);
+            document.getElementById('detailMainImg').src = imgs[activeImgIndex];
+            document.getElementById('imageCounter').innerText = `Image ${activeImgIndex + 1} of ${imgs.length}`;
+        }
+
+        function nextImage() {
+            const imgs = getValidImages(activeProduct);
+            activeImgIndex = (activeImgIndex + 1) % imgs.length;
+            updateCarouselImage();
+        }
+
+        function prevImage() {
+            const imgs = getValidImages(activeProduct);
+            activeImgIndex = (activeImgIndex - 1 + imgs.length) % imgs.length;
+            updateCarouselImage();
+        }
+
+        function zoomIn(e) {
+            const box = document.getElementById('zoomBox');
+            const img = document.getElementById('detailMainImg');
+            const rect = box.getBoundingClientRect();
+            
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            img.style.transformOrigin = `${x}% ${y}%`;
+        }
+
+        function zoomReset() {
+            const img = document.getElementById('detailMainImg');
+            img.style.transformOrigin = `center center`;
+        }
+
+        function renderCustomerGrid() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = "";
+
+            if(products.length === 0) {
+                grid.innerHTML = `<p class="text-slate-500 col-span-full text-center py-12 font-medium">No luxury items listed inside our showroom catalog currently.</p>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const primaryImg = p.imgs[0] || placeholderImg;
+                const priceDisplay = p.price ? p.price : "Contact for Price";
+                grid.innerHTML += `
+                    <div onclick="openProductDetails('${p.id}')" class="bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl border border-slate-800/60 overflow-hidden cursor-pointer flex flex-col group transition duration-300">
+                        <!-- CRITICAL PREMIUM UPGRADE: forced object-cover paired with full square frame provides uniform, edge-to-edge full resolution grid coverage with zero gaps -->
+                        <div class="aspect-square bg-slate-950 overflow-hidden relative flex items-center justify-center">
+                            <img src="${primaryImg}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-slate-950/10 group-hover:bg-transparent transition"></div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-white mb-1 group-hover:text-amber-500 transition line-clamp-2">${p.title}</h3>
+                            <div class="text-amber-500 font-black mb-3 text-lg">${priceDisplay}</div>
+                            <p class="text-slate-400 text-xs line-clamp-2 mb-6 flex-grow leading-relaxed font-light">${p.desc}</p>
+                            <span class="text-xs font-bold text-amber-500 inline-flex items-center gap-1">
+                                View Details & Specs 
+                                <svg class="w-3 h-3 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = "";
+
+            products.forEach(p => {
+                const imgThumb = p.imgs[0] || placeholderImg;
+                const priceDisplay = p.price ? p.price : "—";
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/40 transition border-b border-slate-800">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-4">
+                                <img class="h-12 w-12 rounded-lg object-cover border bg-slate-950 border-slate-800" src="${imgThumb}">
+                                <span class="text-sm font-bold text-white block max-w-xs truncate">${p.title}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-bold text-amber-400">${priceDisplay}</div>
+                        </td>
+                        <td class="px-6 py-4 text-right text-sm font-bold whitespace-nowrap">
+                            <button onclick="editProduct('${p.id}')" class="text-amber-500 hover:text-amber-400 mr-4">Modify</button>
+                            <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('productId').value;
+            const title = document.getElementById('productTitle').value;
+            const price = document.getElementById('productPrice').value;
+            const desc = document.getElementById('productDesc').value;
+            
+            if (!id && !uploadedImagesBase64[0]) {
+                alert("Please upload at least a primary thumbnail image.");
+                return;
+            }
+
+            if (id) {
+                products = products.map(p => {
+                    if (p.id === id) {
+                        const savedImgs = [
+                            uploadedImagesBase64[0] || p.imgs[0],
+                            uploadedImagesBase64[1] || p.imgs[1],
+                            uploadedImagesBase64[2] || p.imgs[2]
+                        ];
+                        return { id, title, price, desc, imgs: savedImgs };
+                    }
+                    return p;
+                });
+            } else {
+                products.push({ id: Date.now().toString(), title, price, desc, imgs: [...uploadedImagesBase64] });
+            }
+
+            localStorage.setItem('g1_inventory', JSON.stringify(products));
+            resetForm();
+            renderAdminTable();
+            alert("Inventory updated successfully.");
+        }
+
+        function editProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            if(p) {
+                resetForm(); 
+                document.getElementById('productId').value = p.id;
+                document.getElementById('productTitle').value = p.title;
+                document.getElementById('productPrice').value = p.price || "";
+                document.getElementById('productDesc').value = p.desc;
+                
+                for(let i=1; i<=3; i++) {
+                    if(p.imgs[i-1]) {
+                        document.getElementById(`imgPreview${i}`).src = p.imgs[i-1];
+                        document.getElementById(`previewContainer${i}`).classList.remove('hidden');
+                    }
+                }
+                
+                document.getElementById('formTitle').innerText = "Modify Mattress Configuration";
+                document.getElementById('submitBtn').innerText = "Apply Corrections";
+            }
+        }
+
+        function deleteProduct(id) {
+            if(confirm("Confirm removal of this model variation from display records?")) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('g1_inventory', JSON.stringify(products));
+                renderAdminTable();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('productForm').reset();
+            document.getElementById('productId').value = "";
+            uploadedImagesBase64 = ["", "", ""];
+            
+            for(let i = 1; i <= 3; i++) {
+                document.getElementById(`previewContainer${i}`).classList.add('hidden');
+                document.getElementById(`imgPreview${i}`).src = "";
+            }
+
+            document.getElementById('formTitle').innerText = "Create New Mattress Entry";
+            document.getElementById('submitBtn').innerText = "Save to Database";
+        }
+
+        renderCustomerGrid();
+    </script>
+</body>
+</html>
