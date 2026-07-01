@@ -514,7 +514,21 @@
             const img = document.getElementById('detailMainImg');
             img.style.transformOrigin = `center center`;
         }
+// ഹാംബർഗർ മെനു തുറക്കാനും അടയ്ക്കാനും
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
 
+        // മെനു തുറന്നിട്ടുണ്ടെങ്കിൽ അത് ക്ലോസ് ചെയ്യാൻ
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        // കോൺടാക്റ്റ് സെക്ഷനിലേക്ക് സ്ക്രോൾ ചെയ്യാൻ
+        function scrollToContact() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
         function renderCustomerGrid() {
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = "";
