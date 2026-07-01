@@ -9,10 +9,6 @@
     <!-- Cropper.js CSS for the Image Cropping Feature -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
     <style>
-        /* Magnifying glass zoom styling */
-        .zoom-container { position: relative; overflow: hidden; cursor: zoom-in; }
-        .zoom-container img { transition: transform 0.1s ease-out; transform-origin: center center; }
-        .zoom-container:hover img { transform: scale(2); }
         
         /* Premium Background Gradient for Hero */
         .hero-bg {
@@ -26,23 +22,31 @@
 <body class="bg-slate-950 font-sans min-h-screen flex flex-col text-slate-100">
 
     <!-- Navigation Bar -->
-    <nav class="bg-black shadow-xl sticky top-0 z-50 border-b border-slate-900/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center w-full">
-                <!-- Far Left: Logo Container -->
-                <div class="flex items-center cursor-pointer py-2" onclick="showCatalogView()">
-                    <img src="logo.jpeg" alt="G-one Mattress Logo" class="h-14 w-auto object-contain transition hover:opacity-90">
-                </div>
-                <!-- Far Right: Navigation Buttons Links -->
-                <div class="flex gap-4 items-center">
-                    <button id="homeNavBtn" onclick="showCatalogView()" class="text-sm font-semibold text-amber-500 hover:text-amber-400 hidden">← Back to Gallery</button>
-                    <button id="adminNavBtn" onclick="openAdminModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-5 py-2.5 rounded-lg text-sm font-bold tracking-wide transition shadow-md whitespace-nowrap">
-                        Admin Portal
-                    </button>
-                </div>
+   <nav class="bg-black shadow-xl sticky top-0 z-50 border-b border-slate-900/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center w-full">
+            <div class="flex items-center cursor-pointer py-2" onclick="showCatalogView()">
+                <img src="logo.jpeg" alt="G-one Mattress Logo" class="h-12 w-auto object-contain">
             </div>
+
+            <div class="hidden md:flex gap-6 items-center">
+                <button onclick="showCatalogView()" class="text-sm font-bold text-slate-300 hover:text-amber-500">Shop</button>
+                <button onclick="scrollToContact()" class="text-sm font-bold text-slate-300 hover:text-amber-500">Contact Us</button>
+                <button onclick="openAdminModal()" class="bg-amber-500 text-slate-950 px-5 py-2 rounded-lg text-sm font-bold">Admin Portal</button>
+            </div>
+
+            <button id="menuBtn" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </div>
-    </nav>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 p-4 space-y-4">
+        <button onclick="showCatalogView(); toggleMenu()" class="block w-full text-left p-3 text-white font-bold">Shop</button>
+        <button onclick="scrollToContact(); toggleMenu()" class="block w-full text-left p-3 text-white font-bold">Contact Us</button>
+        <button onclick="openAdminModal(); toggleMenu()" class="block w-full text-left p-3 text-amber-500 font-bold">Admin Portal</button>
+    </div>
+</nav>
 
     <!-- PREMIUM HERO DISPLAY HEADLINE SECTION -->
     <header id="mainHeroSection" class="hero-bg py-24 px-4 sm:px-6 lg:px-8 text-center border-b border-slate-900 relative">
@@ -543,33 +547,56 @@
                 `;
             });
         }
+function renderAdminTable() {
+    const tbody = document.getElementById('adminTableBody');
+    const mobileGrid = document.getElementById('adminMobileCards');
+    
+    tbody.innerHTML = "";
+    mobileGrid.innerHTML = "";
 
-        function renderAdminTable() {
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = "";
+    if(products.length === 0) {
+        mobileGrid.innerHTML = `<p class="text-slate-500 text-center py-6">No inventory data saved.</p>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="text-slate-500 text-center py-6">No inventory data saved.</td></tr>`;
+        return;
+    }
 
-            products.forEach(p => {
-                const imgThumb = p.imgs[0] || placeholderImg;
-                const priceDisplay = p.price ? p.price : "—";
-                tbody.innerHTML += `
-                    <tr class="hover:bg-slate-800/40 transition border-b border-slate-800">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-4">
-                                <img class="h-12 w-12 rounded-lg object-cover border bg-slate-950 border-slate-800" src="${imgThumb}">
-                                <span class="text-sm font-bold text-white block max-w-xs truncate">${p.title}</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm font-bold text-amber-400">${priceDisplay}</div>
-                        </td>
-                        <td class="px-6 py-4 text-right text-sm font-bold whitespace-nowrap">
-                            <button onclick="editProduct('${p.id}')" class="text-amber-500 hover:text-amber-400 mr-4">Modify</button>
-                            <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
+    products.forEach(p => {
+        const imgThumb = p.imgs[0] || placeholderImg;
+        const priceDisplay = p.price ? p.price : "—";
+        
+        // 1. Desktop View (Table)
+        tbody.innerHTML += `
+            <tr class="hover:bg-slate-800/40 transition border-b border-slate-800">
+                <td class="px-6 py-4 flex items-center gap-4">
+                    <img class="h-10 w-10 rounded-lg object-cover" src="${imgThumb}">
+                    <span class="text-sm text-white truncate max-w-[150px]">${p.title}</span>
+                </td>
+                <td class="px-6 py-4 text-amber-400 font-bold">${priceDisplay}</td>
+                <td class="px-6 py-4 text-right">
+                    <button onclick="editProduct('${p.id}')" class="text-indigo-400 hover:text-indigo-300 mr-3 font-bold text-sm">Modify</button>
+                    <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300 font-bold text-sm">Delete</button>
+                </td>
+            </tr>
+        `;
+
+        // 2. Mobile Card View
+        mobileGrid.innerHTML += `
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <img class="h-12 w-12 rounded-lg object-cover flex-shrink-0" src="${imgThumb}">
+                    <div class="overflow-hidden">
+                        <h4 class="text-sm font-bold text-white truncate">${p.title}</h4>
+                        <p class="text-xs text-amber-500">${priceDisplay}</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 ml-2">
+                    <button onclick="editProduct('${p.id}')" class="bg-indigo-500/10 text-indigo-400 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider">Modify</button>
+                    <button onclick="deleteProduct('${p.id}')" class="bg-red-500/10 text-red-400 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider">Delete</button>
+                </div>
+            </div>
+        `;
+    });
+}
 
         function handleFormSubmit(e) {
             e.preventDefault();
@@ -650,5 +677,36 @@
 
         renderCustomerGrid();
     </script>
+    <footer class="bg-black border-t border-slate-900 mt-16 py-12 px-6 text-slate-300">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+            <h3 class="text-amber-500 font-bold uppercase tracking-widest mb-6">Factory Address</h3>
+            <p class="font-bold text-white mb-2">G-ONE Mattress</p>
+            <p class="text-slate-400 mb-1">Premium Mattress Manufacturing Factory</p>
+            <p class="text-slate-400 mb-1">Co-partner: Morus Pvt Ltd.</p>
+            <p class="text-slate-400 mb-1">Kizhisseri · Kondotty</p>
+            <p class="text-slate-400 mb-1">Malappuram · Kerala</p>
+            <p class="text-slate-400 mb-6">PIN: 673641</p>
+            <p class="flex items-center gap-2 text-white"><span class="text-amber-500">📞</span> +91 90484 37561</p>
+        </div>
+
+        <div>
+            <h3 class="text-amber-500 font-bold uppercase tracking-widest mb-6">Contact</h3>
+            <div class="space-y-3 mb-10">
+                <p class="flex items-center gap-2"><span class="text-amber-500">💬</span> WhatsApp: +91 90484 37561</p>
+                <p class="flex items-center gap-2"><span class="text-amber-500">☎️</span> +91 90484 37561</p>
+                <p class="flex items-center gap-2"><span class="text-amber-500">📍</span> All India Doorstep Delivery</p>
+            </div>
+
+            <h3 class="text-amber-500 font-bold uppercase tracking-widest mb-6">Why G-ONE</h3>
+            <ul class="space-y-2 text-slate-400 text-sm">
+                <li>✓ 25+ Years Manufacturer Warranty</li>
+                <li>✓ 100-Night In-Home Comfort Trial</li>
+                <li>✓ Hand-stitched, factory-direct</li>
+                <li>✓ All India Doorstep Delivery</li>
+            </ul>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
