@@ -596,43 +596,6 @@ function renderAdminTable() {
         `;
     });
 }
-    products.forEach(p => {
-        const imgThumb = p.imgs[0] || placeholderImg;
-        const priceDisplay = p.price ? p.price : "—";
-        
-        // 1. Desktop View (Table)
-        tbody.innerHTML += `
-            <tr class="hover:bg-slate-800/40 transition border-b border-slate-800">
-                <td class="px-6 py-4 flex items-center gap-4">
-                    <img class="h-10 w-10 rounded-lg object-cover" src="${imgThumb}">
-                    <span class="text-sm text-white truncate max-w-[150px]">${p.title}</span>
-                </td>
-                <td class="px-6 py-4 text-amber-400 font-bold">${priceDisplay}</td>
-                <td class="px-6 py-4 text-right">
-                    <button onclick="editProduct('${p.id}')" class="text-indigo-400 hover:text-indigo-300 mr-3 font-bold text-sm">Modify</button>
-                    <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-300 font-bold text-sm">Delete</button>
-                </td>
-            </tr>
-        `;
-
-        // 2. Mobile Card View
-        mobileGrid.innerHTML += `
-            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <img class="h-12 w-12 rounded-lg object-cover flex-shrink-0" src="${imgThumb}">
-                    <div class="overflow-hidden">
-                        <h4 class="text-sm font-bold text-white truncate">${p.title}</h4>
-                        <p class="text-xs text-amber-500">${priceDisplay}</p>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-2 ml-2">
-                    <button onclick="editProduct('${p.id}')" class="bg-indigo-500/10 text-indigo-400 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider">Modify</button>
-                    <button onclick="deleteProduct('${p.id}')" class="bg-red-500/10 text-red-400 px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider">Delete</button>
-                </div>
-            </div>
-        `;
-    });
-}
 
         function handleFormSubmit(e) {
             e.preventDefault();
